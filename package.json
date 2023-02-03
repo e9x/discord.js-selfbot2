@@ -1,0 +1,18 @@
+{
+  "name": "@e9x/discord.js-selfbot2",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "author": "David Reed",
+  "license": "ISC",
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
+    "eslint": "^8.33.0",
+    "node-fetch": "^3.3.0",
+    "prettier": "^2.8.3",
+    "tar": "^6.1.13"
+  }
+}

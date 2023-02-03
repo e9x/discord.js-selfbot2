@@ -68,10 +68,10 @@ console.log(`Extracted ${latest.dist.tarball}`);
   let wsManager = await readFile(wsManagerPath, "utf-8");
 
   // users can't shard
-  // sending the initial request is sketchy... but this is ok for now
+  // we need to avoid sending the request because if it returns 401, rest.setToken(null) is called and all requests will fail
   wsManager = wsManager.replace(
-    /throw error\.status === 401 \? invalidToken : error;/g,
-    `if (error.status === 401) return ${JSON.stringify({
+    /await this.client.rest.get\(Routes.gatewayBot\(\)\)/,
+    `await Promise.resolve(${JSON.stringify({
       url: "wss://gateway.discord.gg",
       shards: 1,
       session_start_limit: {
@@ -80,7 +80,7 @@ console.log(`Extracted ${latest.dist.tarball}`);
         reset_after: 0,
         max_concurrency: 1,
       },
-    })}; else throw error;`
+    })})`
   );
 
   await writeFile(wsManagerPath, wsManager);
